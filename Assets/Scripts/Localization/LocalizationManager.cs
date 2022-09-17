@@ -2,12 +2,18 @@ using System;
 using System.Collections.Generic;
 using Cards;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Localization
 {
     public enum Languages
     {
         English, Turkish
+    }
+
+    public enum UIType
+    {
+        Quote, QuoteSemi
     }
 
     [DefaultExecutionOrder(-5)]
@@ -25,14 +31,28 @@ namespace Localization
                 public CardType textID;
                 public string text;
             }
-
+            
             public List<Texts> texts;
+            
+            [Serializable]
+            public class UITexts
+            {
+                public UIType uIType;
+                public string uIText;
+            }
+
+            public List<UITexts> uTexts;
         }
 
         public List<TextLanguage> textLanguage;
 
         public readonly Dictionary<Enum, TextLanguage.Texts> EnglishCards = new Dictionary<Enum, TextLanguage.Texts>();
         public readonly Dictionary<Enum, TextLanguage.Texts> TurkishCards = new Dictionary<Enum, TextLanguage.Texts>();
+
+        public readonly Dictionary<Enum, TextLanguage.UITexts> EnglishTexts =
+            new Dictionary<Enum, TextLanguage.UITexts>();
+        public readonly Dictionary<Enum, TextLanguage.UITexts> TurkishTexts =
+            new Dictionary<Enum, TextLanguage.UITexts>();
 
         private void Awake()
         {
@@ -54,9 +74,22 @@ namespace Localization
                             throw new ArgumentOutOfRangeException();
                     }
                 }
+
+                foreach (var text in language.uTexts)
+                {
+                    switch (language.language)
+                    {
+                        case Languages.English:
+                            EnglishTexts.Add(text.uIType, text);
+                            break;
+                        case Languages.Turkish:
+                            TurkishTexts.Add(text.uIType, text);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
             }
-            
-            
         }
     }
 }

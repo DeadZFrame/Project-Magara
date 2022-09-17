@@ -1,6 +1,5 @@
 using Environment;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace CameraScript
 {
