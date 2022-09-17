@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2df627688aee154fa84afb66a6b69b2, type: 3}
+  m_Name: EnvData
+  m_EditorClassIdentifier: 
+  firstEarth: {fileID: 7808946738547028831, guid: e4642e0398ec9484f9c273c28507e2f4,
+    type: 3}
+  rockyEarth: {fileID: 4758988691165270596, guid: 854a56bf7099d8342881e3f5dfde825f,
+    type: 3}

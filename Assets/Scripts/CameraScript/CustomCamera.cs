@@ -1,13 +1,15 @@
+using Environment;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace CameraScript
 {
     public class CustomCamera : MonoBehaviour
     {
-        [SerializeField] private Transform earth;
+        private Transform Earth => EarthManager.Instance.gameObject.transform;
         private void Update()
         {
-            transform.RotateAround(earth.position, Vector3.up, 5 * Time.deltaTime);
+            transform.RotateAround(Earth.position, Vector3.up, 5 * Time.deltaTime);
         }
     }
 }
