@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
+    [DefaultExecutionOrder(-5)]
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance;

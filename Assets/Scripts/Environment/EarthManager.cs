@@ -11,15 +11,12 @@ namespace Environment
         public static EarthManager Instance;
         [SerializeField] private EnvData envData;
 
-        public GameObject FirstEarth => envData.firstEarth;
-        public GameObject RockyEarth => envData.rockyEarth;
+        public Material FirstEarth => envData.firstEarth;
+        public Material RockyEarth => envData.rockyEarth;
 
         private void Awake()
         {
             Instance = this;
-
-            var earth = Instantiate(FirstEarth, transform.position, quaternion.identity);
-            earth = FirstEarth;
         }
     }
 }
