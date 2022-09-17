@@ -20,11 +20,13 @@ namespace UI
             Instance = this;
 
             QuoteText.SetText(GetText(UIType.Quote));
+
+            StartCoroutine(EndQuote());
         }
 
         private void Update()
         {
-            Time.timeScale = startScene.panel.activeInHierarchy ? 1 : 0;
+            Time.timeScale = startScene.panel.activeInHierarchy ? 0 : 1;
         }
 
         private IEnumerator EndQuote()
