@@ -67,6 +67,7 @@ namespace Localization
                     {
                         case Languages.English:
                             EnglishCards.Add(text.textID, text);
+                            CardManager.CardEnums.Add(text.textID);
                             break;
                         case Languages.Turkish:
                             TurkishCards.Add(text.textID, text);

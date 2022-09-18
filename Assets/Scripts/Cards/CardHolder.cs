@@ -52,8 +52,6 @@ namespace Cards
             
             RightImage.sprite = CardManager.GetCard(rightCardType).sprite;
             RightText.SetText(GetText(rightCardType));
-            
-            CardManager.Index += 2;
         }
 
         private static string GetText(CardType cardType)

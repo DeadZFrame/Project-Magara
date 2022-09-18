@@ -55,14 +55,14 @@ namespace UI
 
         private IEnumerator ChangeCard()
         {
-            var time = 1.3f;
+            var time = 1.5f;
             while (time >= 0)
             {
                 time -= Time.deltaTime;
                 yield return null;
             }
-            
-            Debug.Log("passed");
+
+            CardManager.Index += 2;
             
             CardHolder.Instance.SetCard(CardManager.CardEnums[CardManager.Index],
                 CardManager.CardEnums[CardManager.Index + 1]);

@@ -17,6 +17,7 @@ namespace Environment
 
         public GameObject FirstEarth => envData.firstEarth;
         public GameObject RockyEarth => envData.rockyEarth;
+        public GameObject GreenEarth => envData.greenEarth;
         
         [SerializeField] private GameObject skyBox;
         [SerializeField] private GameObject sun;
@@ -24,11 +25,12 @@ namespace Environment
 
         private Material FirstEarthMaterial
         {
-            get => FirstEarth.GetComponent<Material>();
+            get => FirstEarth.GetComponent<Renderer>().sharedMaterial;
             set => throw new NotImplementedException();
         }
 
-        private Material RockyEarthMaterial => RockyEarth.GetComponent<Material>();
+        private Material RockyEarthMaterial => RockyEarth.GetComponent<Renderer>().sharedMaterials[0];
+        private Material GreenEarthMaterial => GreenEarth.GetComponent<Renderer>().sharedMaterials[0];
 
         private List<CardType> _cardTypes = new List<CardType>();
 
@@ -41,15 +43,15 @@ namespace Environment
 
         public void AddEarthState(CardType cardType)
         {
-            Debug.Log(CardManager.Index);
+            Debug.Log(cardType);
             
             switch (cardType)
             {
                 case CardType.Lava:
-                    FirstEarth.GetComponent<Renderer>().material.color = new Color(1f, 0.27f, 0f);
+                    FirstEarth.GetComponent<Renderer>().sharedMaterial.color = new Color(1f, 0.27f, 0f);
                     break;
                 case CardType.Water:
-                    FirstEarth.GetComponent<Renderer>().material.color = new Color(0f, 0.87f, 1f);
+                    FirstEarth.GetComponent<Renderer>().sharedMaterial.color = new Color(0f, 0.87f, 1f);
                     break;
                 case CardType.H2O:
                     atmosphere.SetActive(true);
@@ -60,13 +62,15 @@ namespace Environment
                     atmosphere.GetComponent<Image>().color = Color.green;
                     break;
                 case CardType.Hot:
+                    
                     break;
                 case CardType.Cold:
                     break;
                 case CardType.Night:
+                    sun.SetActive(true);
                     var color = new Color(0.49f, 0.49f, 0.49f);
                     StartCoroutine(DayNight(color));
-                    var mat = sun.GetComponent<Renderer>().material;
+                    var mat = sun.GetComponent<Renderer>().sharedMaterial;
                     mat.SetColor("_EmissionColor", Color.cyan);
                     var l = sun.GetComponentInChildren<Light>();
                     l.intensity = 1;
@@ -76,12 +80,13 @@ namespace Environment
                     var color2 = Color.white;
                     StartCoroutine(DayNight(color2));
                     sun.SetActive(true);
+                    sun.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", new Color(1f, 0.78f, 0f));
                     break;
                 case CardType.Rock:
-                    StartCoroutine(ReduceEarthAlpha());
-                    sun.SetActive(true);
+                    StartCoroutine(ReduceEarthAlpha(cardType));
                     break;
                 case CardType.Grass:
+                    StartCoroutine(ReduceEarthAlpha(cardType));
                     break;
                 case CardType.Tree:
                     break;
@@ -102,14 +107,17 @@ namespace Environment
 
         [SerializeField] private Material transparentMat;
 
-        private IEnumerator ReduceEarthAlpha()
+        private IEnumerator ReduceEarthAlpha(CardType cardType)
         {
-            FirstEarthMaterial = transparentMat;
-            Instantiate(RockyEarth, transform.position, quaternion.identity);
-            while (transparentMat.color.a != 0)
+            var material = FirstEarthMaterial;
+            material = transparentMat;
+            
+            Instantiate(cardType == CardType.Rock ? RockyEarth : GreenEarth, transform.position, quaternion.identity);
+            
+            while (material.color.a != 0)
             {
-                transparentMat.color = new Color(transparentMat.color.r, transparentMat.color.g, transparentMat.color.b, Mathf.Lerp(transparentMat.color.a, 0, 0.1f));
-                RockyEarthMaterial.color = new Color(RockyEarthMaterial.color.r, RockyEarthMaterial.color.g, RockyEarthMaterial.color.b, Mathf.Lerp(RockyEarthMaterial.color.a, 255, 0.1f));
+                material.color = new Color(material.color.r, material.color.g, material.color.b, Mathf.Lerp(material.color.a, 0, 0.1f));
+                //RockyEarthMaterial.color = new Color(RockyEarthMaterial.color.r, RockyEarthMaterial.color.g, RockyEarthMaterial.color.b, Mathf.Lerp(RockyEarthMaterial.color.a, 255, 0.1f));
                 yield return null;
             }
             

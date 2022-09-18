@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EarthLowPolly64-32 1
-  m_Shader: {fileID: -6465566751694194690, guid: ed22e043f4302c24daaa99a269d5163d,
+  m_Name: EarthLowPolly64-32 Green
+  m_Shader: {fileID: -6465566751694194690, guid: 4e4475250ed11c648bfc91b023f6da00,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

@@ -8,5 +8,6 @@ namespace Data
     {
         public GameObject firstEarth;
         public GameObject rockyEarth;
+        public GameObject greenEarth;
     }
 }
