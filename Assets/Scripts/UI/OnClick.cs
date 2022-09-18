@@ -2,6 +2,7 @@ using System.Collections;
 using Cards;
 using Environment;
 using Localization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,17 +19,29 @@ namespace UI
         public void ENG()
         {
             Core.GameSettings.Language = Languages.English;
-            UIManager.startScene.quote.SetActive(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         
         public void TR()
         {
             Core.GameSettings.Language = Languages.Turkish;
-            UIManager.startScene.quote.SetActive(true);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         public void LeftCard()
         {
+            var rand = Random.Range(0, 3);
+            switch (rand)
+            {
+                case 0: SFXManager.Instance.Play(SFXManager.SoundName.Pick1);
+                    break;
+                case 1: SFXManager.Instance.Play(SFXManager.SoundName.Pick2);
+                    break;
+                case 2: SFXManager.Instance.Play(SFXManager.SoundName.Pick3); break;
+            }
+            
+            SFXManager.Instance.Play(SFXManager.SoundName.Silent);
+            
             UIManager.cards.leftCard.GetComponent<Button>().interactable = false;
             UIManager.cards.rightCard.GetComponent<Button>().interactable = false;
             
@@ -44,6 +57,18 @@ namespace UI
 
         public void RightCard()
         {
+            var rand = Random.Range(0, 3);
+            switch (rand)
+            {
+                case 0: SFXManager.Instance.Play(SFXManager.SoundName.Pick1);
+                    break;
+                case 1: SFXManager.Instance.Play(SFXManager.SoundName.Pick2);
+                    break;
+                case 2: SFXManager.Instance.Play(SFXManager.SoundName.Pick3); break;
+            }
+            
+            SFXManager.Instance.Play(SFXManager.SoundName.Silent);
+            
             UIManager.cards.leftCard.GetComponent<Button>().interactable = false;
             UIManager.cards.rightCard.GetComponent<Button>().interactable = false;
             
@@ -72,11 +97,11 @@ namespace UI
             
             if (CardManager.Index > 15)
             {
-                EndingManager.Instance.Ending();
+                UIManager.keepOn.SetActive(true);
                 
                 UIManager.cards.leftCard.SetActive(false);
                 UIManager.cards.rightCard.SetActive(false);
-                
+
                 yield break;
             }
             
@@ -91,6 +116,19 @@ namespace UI
         private static readonly int Select = Animator.StringToHash("Select");
         private static readonly int UnSelect = Animator.StringToHash("UnSelect");
 
+        private IEnumerator End()
+        {
+            while (UIManager.startScene.quote.GetComponent<TextMeshProUGUI>().alpha != 0)
+            {
+                yield return null;
+            }
+
+            UIManager.startScene.panel.SetActive(false);
+            UIManager.startScene.quote.SetActive(false);
+            
+            EndingManager.Instance.Ending();
+        }
+        
         public void TakeScreenShot()
         {
             ScreenCapture.CaptureScreenshot(_index == 0 ? $"URMistSS.png" : $"URMistSS{_index}.png");
@@ -100,6 +138,18 @@ namespace UI
         public void Play()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        public void KeepOn()
+        {
+            SFXManager.Instance.Play(SFXManager.SoundName.KeepOn);
+            SFXManager.Instance.Play(SFXManager.SoundName.Grinder);
+            
+            UIManager.keepOn.SetActive(false);
+            
+            UIManager.startScene.panel.SetActive(true);
+            UIManager.startScene.quote.SetActive(true);
+            StartCoroutine(End());
         }
     }
 }

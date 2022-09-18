@@ -22,6 +22,12 @@ namespace Environment
         [SerializeField] private GameObject skyBox;
         [SerializeField] private GameObject sun;
         [SerializeField] private GameObject atmosphere;
+        [SerializeField] private GameObject building;
+        [SerializeField] private GameObject tree;
+        [SerializeField] private GameObject dog;
+        [SerializeField] private GameObject cat;
+        [SerializeField] private GameObject mom;
+        [SerializeField] private GameObject dad;
 
         private Material FirstEarthMaterial
         {
@@ -97,16 +103,22 @@ namespace Environment
                     StartCoroutine(ReduceEarthAlpha(cardType));
                     break;
                 case CardType.Tree:
+                    tree.SetActive(true);
                     break;
                 case CardType.Building:
+                    building.SetActive(true);
                     break;
                 case CardType.Cat:
+                    cat.SetActive(true);
                     break;
                 case CardType.Dog:
+                    dog.SetActive(true);
                     break;
                 case CardType.Mom:
+                    mom.SetActive(true);
                     break;
                 case CardType.Dad:
+                    dad.SetActive(true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(cardType), cardType, null);

@@ -1,69 +1,82 @@
 using System.Collections;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class Patrol : MonoBehaviour
+namespace Environment
 {
-    private Image Image => GetComponent<Image>();
-
-    private Color _tempColor;
-
-    private void Start()
+    public class Patrol : MonoBehaviour
     {
-        var ımageColor = Image.color;
-        _tempColor = ımageColor;
+        private Image Image => GetComponent<Image>();
 
-        switch (Random.Range(0, 2))
+        private Color _tempColor;
+
+        private void Start()
         {
-            case 0 : 
-                ımageColor.a = 1f; 
-                StartCoroutine(ReduceAlpha());
-                break;
-            case 1 :
-                ımageColor.a = 0f;
-                StartCoroutine(IncreaseAlpha());
-                break;
+            /*var ımageColor = Image.color;
+            _tempColor = ımageColor;
+
+            switch (Random.Range(0, 2))
+            {
+                case 0 : 
+                    ımageColor.a = 1f; 
+                    StartCoroutine(ReduceAlpha());
+                    break;
+                case 1 :
+                    ımageColor.a = 0f;
+                    StartCoroutine(IncreaseAlpha());
+                    break;
+            }*/
+
+            StartCoroutine(FindDestination());
         }
 
-        StartCoroutine(FindDestination());
-    }
-
-    private IEnumerator FindDestination()
-    {
-        var dest = new Vector3(Random.value, Random.value);
-
-        while (transform.position != dest)
+        private IEnumerator FindDestination()
         {
-            var lerp = Vector3.Lerp(transform.GetComponent<RectTransform>().anchoredPosition, dest, 0.05f);
-            transform.position = lerp;
-            yield return null;
-        }
-    }
-    
-    private IEnumerator IncreaseAlpha()
-    {
-        Image.color = Color.Lerp(Image.color, _tempColor, 0.01f);
+            var randX = Random.Range(-900, 900);
+            var randY = Random.Range(-100, -450);
         
-        if (Image.color.a == 1f)
-        {
-            yield break;
+            var pos = gameObject.GetComponent<RectTransform>();
+            var dest = new Vector3(randX, randY);
+
+            StartCoroutine(Anim(1f));
+            
+            while (pos.transform.position != dest)
+            {
+                pos.anchoredPosition = Vector2.Lerp(pos.anchoredPosition, dest, .05f);
+                yield return null;
+            }
         }
 
-        yield return null;
-        StartCoroutine(ReduceAlpha());
-    }
+        private IEnumerator Anim(float time)
+        {
+            yield return new WaitForSeconds(time);
+            UIManager.Instance.referance.GetComponent<Animator>().enabled = true;
+        }
 
-    private IEnumerator ReduceAlpha()
-    {
-        Image.color = Color.Lerp(Image.color, new Color(1f, 1f, 1f, 0f), 0.01f);
+        private IEnumerator IncreaseAlpha()
+        {
+            var color = Image.color.a;
+            while (color != 1)
+            {
+                Image.color = Color.Lerp(Image.color, _tempColor, 0.05f);
+                yield return null;
+            }
+
+            StartCoroutine(ReduceAlpha());
+        }
+
+        private IEnumerator ReduceAlpha()
+        {
+            var color = Image.color.a;
+            while (color != 0)
+            {
+                Image.color = Color.Lerp(Image.color, new Color(1f, 1f, 1f, 0f), 0.05f);
+                yield return null;
+            }
         
-        if (Image.color.a == 0)
-        {
-            yield break;
+            StartCoroutine(IncreaseAlpha());
         }
-
-        yield return null;
-        StartCoroutine(IncreaseAlpha());
     }
 }

@@ -13,7 +13,7 @@ namespace Localization
 
     public enum UIType
     {
-        Quote, QuoteSemi
+        Quote, QuoteSemi, Play, Credits, Keep, Endtext,
     }
 
     [DefaultExecutionOrder(-6)]
@@ -57,8 +57,9 @@ namespace Localization
         private void Awake()
         {
             Instance = this;
-            GameSettings.Language = Languages.English;
             
+            SFXManager.Instance.Play(SFXManager.SoundName.GameMusic);
+
             foreach (var language in textLanguage)
             {
                 foreach (var text in language.texts)
@@ -91,6 +92,8 @@ namespace Localization
                             throw new ArgumentOutOfRangeException();
                     }
                 }
+                
+                
             }
         }
     }

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7300712702933773675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7300712702933773668}
+  - component: {fileID: 7300712702933773669}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7300712702933773668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7300712702933773675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7300712702933773669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7300712702933773675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4e4ed8fcf30994b863ae902b544136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: 0
+    clip: {fileID: 8300000, guid: a58d40ded5f7d7d4fb99fdefe93eb50b, type: 3}
+    volume: 0.2
+    source: {fileID: 0}
+  - name: 1
+    clip: {fileID: 8300000, guid: 9bac476022b6ada489bae42579da82e2, type: 3}
+    volume: 0.2
+    source: {fileID: 0}
+  - name: 2
+    clip: {fileID: 8300000, guid: 58a56e997f5d7e345bbb869e0b21cda4, type: 3}
+    volume: 0.2
+    source: {fileID: 0}
+  - name: 3
+    clip: {fileID: 8300000, guid: d2ea3af251ab8f24b82eafc9b2eda369, type: 3}
+    volume: 0.1
+    source: {fileID: 0}
+  - name: 4
+    clip: {fileID: 8300000, guid: e0e03657c48abc249b0f37b66c7d117b, type: 3}
+    volume: 0.2
+    source: {fileID: 0}
+  - name: 5
+    clip: {fileID: 8300000, guid: 5211086740d74c546abe3a3a71795639, type: 3}
+    volume: 0.2
+    source: {fileID: 0}
+  - name: 6
+    clip: {fileID: 8300000, guid: d70c7bbe9e8d5404ca2f126c9dd2fe06, type: 3}
+    volume: 0.2
+    source: {fileID: 0}
