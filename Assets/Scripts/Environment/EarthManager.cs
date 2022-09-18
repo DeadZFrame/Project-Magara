@@ -17,8 +17,10 @@ namespace Environment
 
         public GameObject FirstEarth => envData.firstEarth;
         public GameObject RockyEarth => envData.rockyEarth;
+        
         [SerializeField] private GameObject skyBox;
         [SerializeField] private GameObject sun;
+        [SerializeField] private GameObject atmosphere;
 
         private Material FirstEarthMaterial
         {
@@ -39,26 +41,31 @@ namespace Environment
 
         public void AddEarthState(CardType cardType)
         {
+            Debug.Log(CardManager.Index);
+            
             switch (cardType)
             {
                 case CardType.Lava:
-                    FirstEarth.GetComponent<Material>().color = new Color(1f, 0.27f, 0f);
+                    FirstEarth.GetComponent<Renderer>().material.color = new Color(1f, 0.27f, 0f);
                     break;
                 case CardType.Water:
-                    FirstEarth.GetComponent<Material>().color = new Color(0f, 0.87f, 1f);
+                    FirstEarth.GetComponent<Renderer>().material.color = new Color(0f, 0.87f, 1f);
                     break;
                 case CardType.H2O:
-                    
+                    atmosphere.SetActive(true);
+                    atmosphere.GetComponent<Image>().color = new Color(0f, 0.69f, 1f);
                     break;
                 case CardType.Toxic:
+                    atmosphere.SetActive(true);
+                    atmosphere.GetComponent<Image>().color = Color.green;
                     break;
                 case CardType.Hot:
-                    
                     break;
                 case CardType.Cold:
                     break;
                 case CardType.Night:
-                    skyBox.GetComponent<Image>().color = new Color(0.49f, 0.49f, 0.49f);
+                    var color = new Color(0.49f, 0.49f, 0.49f);
+                    StartCoroutine(DayNight(color));
                     var mat = sun.GetComponent<Renderer>().material;
                     mat.SetColor("_EmissionColor", Color.cyan);
                     var l = sun.GetComponentInChildren<Light>();
@@ -66,7 +73,8 @@ namespace Environment
                     l.colorTemperature = 7000;
                     break;
                 case CardType.Day:
-                    skyBox.GetComponent<Image>().color = Color.white;
+                    var color2 = Color.white;
+                    StartCoroutine(DayNight(color2));
                     sun.SetActive(true);
                     break;
                 case CardType.Rock:
@@ -101,11 +109,21 @@ namespace Environment
             while (transparentMat.color.a != 0)
             {
                 transparentMat.color = new Color(transparentMat.color.r, transparentMat.color.g, transparentMat.color.b, Mathf.Lerp(transparentMat.color.a, 0, 0.1f));
-                RockyEarthMaterial.color = new Color(RockyEarthMaterial.color.r, RockyEarthMaterial.color.g, RockyEarthMaterial.color.b, Mathf.Lerp(RockyEarthMaterial.color.a, 255, 0.1f))
+                RockyEarthMaterial.color = new Color(RockyEarthMaterial.color.r, RockyEarthMaterial.color.g, RockyEarthMaterial.color.b, Mathf.Lerp(RockyEarthMaterial.color.a, 255, 0.1f));
                 yield return null;
             }
             
             FirstEarth.SetActive(false);
+        }
+
+        private IEnumerator DayNight(Color color)
+        {
+            var skyColor = skyBox.GetComponent<Image>().color;
+            while (skyColor != color)
+            {
+                skyColor = Color.Lerp(skyColor, color, 0.1f);
+                yield return null;
+            }
         }
     }
 }

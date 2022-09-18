@@ -3,6 +3,8 @@ using Cards;
 using Environment;
 using Localization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -26,32 +28,47 @@ namespace UI
         }
 
         public void LeftCard()
-        { 
+        {
+            UIManager.cards.leftCard.GetComponent<Button>().interactable = false;
+            UIManager.cards.rightCard.GetComponent<Button>().interactable = false;
+            
             LeftCardAnim.SetTrigger(Select);
             RightCardAnim.SetTrigger(UnSelect);
-            StartCoroutine(ChangeCard());
             
             EarthManager.Instance.AddEarthState(CardManager.CardEnums[CardManager.Index]);
+            
+            StartCoroutine(ChangeCard());
         }
 
         public void RightCard()
         {
+            UIManager.cards.leftCard.GetComponent<Button>().interactable = false;
+            UIManager.cards.rightCard.GetComponent<Button>().interactable = false;
+            
             LeftCardAnim.SetTrigger(UnSelect);
             RightCardAnim.SetTrigger(Select);
-            StartCoroutine(ChangeCard());
             
             EarthManager.Instance.AddEarthState(CardManager.CardEnums[CardManager.Index + 1]);
+            
+            StartCoroutine(ChangeCard());
         }
 
         private IEnumerator ChangeCard()
         {
-            while (!LeftCardAnim.GetNextAnimatorStateInfo(0).IsName("LeftCardDraw"))
+            var time = 1.3f;
+            while (time >= 0)
             {
+                time -= Time.deltaTime;
                 yield return null;
             }
             
+            Debug.Log("passed");
+            
             CardHolder.Instance.SetCard(CardManager.CardEnums[CardManager.Index],
-                CardManager.CardEnums[CardManager.Index]);
+                CardManager.CardEnums[CardManager.Index + 1]);
+            
+            UIManager.cards.leftCard.GetComponent<Button>().interactable = true;
+            UIManager.cards.rightCard.GetComponent<Button>().interactable = true;
         }
 
         private int _index = 0;
@@ -60,13 +77,13 @@ namespace UI
 
         public void TakeScreenShot()
         {
-            ScreenCapture.CaptureScreenshot(_index == 0 ? $"URMistScreenShot.png" : $"URMistScreenShot{_index}.png");
+            ScreenCapture.CaptureScreenshot(_index == 0 ? $"URMistSS.png" : $"URMistSS{_index}.png");
             _index += 1;
         }
 
         public void Play()
         {
-            //scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
