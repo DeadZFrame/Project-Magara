@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Localization;
-using UnityEngine.UI;
 
 namespace Cards
 {

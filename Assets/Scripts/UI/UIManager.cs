@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Core;
 using Localization;
 using TMPro;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace UI
         {
             Instance = this;
 
-            QuoteText.SetText(GetText(UIType.Quote));
+            //QuoteText.SetText(GetText(UIType.Quote));
 
             StartCoroutine(EndQuote());
         }

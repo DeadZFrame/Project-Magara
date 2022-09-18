@@ -34,10 +34,10 @@ namespace Cards
             }
         }
 
-        private Image LeftImage => UIManager.Instance.cards.leftCard.GetComponent<Image>();
-        private TextMeshProUGUI LeftText => UIManager.Instance.cards.leftCard.GetComponent<TextMeshProUGUI>();
-        private Image RightImage => UIManager.Instance.cards.rightCard.GetComponent<Image>();
-        private TextMeshProUGUI RightText => UIManager.Instance.cards.rightCard.GetComponent<TextMeshProUGUI>();
+        private Image LeftImage => UIManager.Instance.cards.leftCard.transform.GetChild(0).GetComponent<Image>();
+        private TextMeshProUGUI LeftText => UIManager.Instance.cards.leftCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        private Image RightImage => UIManager.Instance.cards.rightCard.transform.GetChild(0).GetComponent<Image>();
+        private TextMeshProUGUI RightText => UIManager.Instance.cards.rightCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         
         private void Start()
         {

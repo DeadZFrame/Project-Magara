@@ -1,5 +1,6 @@
 using System.Collections;
 using Cards;
+using Environment;
 using Localization;
 using UnityEngine;
 
@@ -8,7 +9,6 @@ namespace UI
     public class OnClick : MonoBehaviour
     {
         private static UIManager UIManager => UIManager.Instance;
-        [SerializeField] private GameObject managers;
 
         private Animator LeftCardAnim => UIManager.cards.leftCard.GetComponent<Animator>();
         private Animator RightCardAnim => UIManager.cards.rightCard.GetComponent<Animator>();
@@ -16,14 +16,12 @@ namespace UI
         public void ENG()
         {
             Core.GameSettings.Language = Languages.English;
-            managers.gameObject.SetActive(true);
             UIManager.startScene.quote.SetActive(false);
         }
         
         public void TR()
         {
             Core.GameSettings.Language = Languages.Turkish;
-            managers.gameObject.SetActive(true);
             UIManager.startScene.quote.SetActive(true);
         }
 
@@ -32,6 +30,8 @@ namespace UI
             LeftCardAnim.SetTrigger(Select);
             RightCardAnim.SetTrigger(UnSelect);
             StartCoroutine(ChangeCard());
+            
+            EarthManager.Instance.AddEarthState(CardManager.CardEnums[CardManager.Index]);
         }
 
         public void RightCard()
@@ -39,6 +39,8 @@ namespace UI
             LeftCardAnim.SetTrigger(UnSelect);
             RightCardAnim.SetTrigger(Select);
             StartCoroutine(ChangeCard());
+            
+            EarthManager.Instance.AddEarthState(CardManager.CardEnums[CardManager.Index + 1]);
         }
 
         private IEnumerator ChangeCard()
@@ -60,6 +62,11 @@ namespace UI
         {
             ScreenCapture.CaptureScreenshot(_index == 0 ? $"URMistScreenShot.png" : $"URMistScreenShot{_index}.png");
             _index += 1;
+        }
+
+        public void Play()
+        {
+            //scene
         }
     }
 }

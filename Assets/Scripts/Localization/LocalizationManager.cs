@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Cards;
+using Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Localization
 {
@@ -16,7 +16,7 @@ namespace Localization
         Quote, QuoteSemi
     }
 
-    [DefaultExecutionOrder(-5)]
+    [DefaultExecutionOrder(-6)]
     public class LocalizationManager : MonoBehaviour
     {
         public static LocalizationManager Instance { get; private set; }
@@ -57,6 +57,7 @@ namespace Localization
         private void Awake()
         {
             Instance = this;
+            GameSettings.Language = Languages.English;
             
             foreach (var language in textLanguage)
             {

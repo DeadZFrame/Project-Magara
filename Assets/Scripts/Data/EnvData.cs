@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Data
@@ -5,7 +6,7 @@ namespace Data
     [CreateAssetMenu(fileName = "EnvData", menuName = "Scriptable Object/Data")]
     public class EnvData : ScriptableObject
     {
-        public Material firstEarth;
-        public Material rockyEarth;
+        public GameObject firstEarth;
+        public GameObject rockyEarth;
     }
 }
