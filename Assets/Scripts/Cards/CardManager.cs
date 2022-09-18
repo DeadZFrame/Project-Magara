@@ -5,8 +5,8 @@ namespace Cards
 {
     public enum CardType
     {
-        Lava, Water, H2O, Toxic, Rock, Grass, Hot, Cold, Night, Day,
-        Tree, Building, Cat, Dog, Mom, Dad,
+        Lava, Water, H2O, Toxic, Night, Day, Rock, Grass, 
+        Hot, Cold, Tree, Building, Cat, Dog, Mom, Dad,
     }
 
     public static class CardManager
@@ -14,6 +14,8 @@ namespace Cards
         public static int Index;
 
         public static readonly List<CardType> CardEnums = new List<CardType>();
+
+        public static readonly List<CardType> NonUseCards = new List<CardType>();
 
         private static readonly Dictionary<Enum, CardHolder.Card> CardDict = new Dictionary<Enum, CardHolder.Card>();
 

@@ -39,6 +39,7 @@ namespace Environment
             Instance = this;
 
             Instantiate(FirstEarth, transform.position, quaternion.identity);
+            FirstEarthMaterial.color = new Color(0.7f, 0.89f, 1f);
         }
 
         public void AddEarthState(CardType cardType)
@@ -62,16 +63,23 @@ namespace Environment
                     atmosphere.GetComponent<Image>().color = Color.green;
                     break;
                 case CardType.Hot:
-                    
+                    GreenEarthMaterial.EnableKeyword("_EMISSION");
+                    GreenEarthMaterial.SetColor("_EmissionColor", Color.red);
+                    RockyEarthMaterial.EnableKeyword("_EMISSION");
+                    RockyEarthMaterial.SetColor("_EmissionColor", Color.red);
                     break;
                 case CardType.Cold:
+                    GreenEarthMaterial.EnableKeyword("_EMISSION");
+                    GreenEarthMaterial.SetColor("_EmissionColor", Color.blue);
+                    RockyEarthMaterial.EnableKeyword("_EMISSION");
+                    RockyEarthMaterial.SetColor("_EmissionColor", Color.blue);
                     break;
                 case CardType.Night:
                     sun.SetActive(true);
-                    var color = new Color(0.49f, 0.49f, 0.49f);
+                    var color = new Color(0.33f, 0.33f, 0.33f);
                     StartCoroutine(DayNight(color));
                     var mat = sun.GetComponent<Renderer>().sharedMaterial;
-                    mat.SetColor("_EmissionColor", Color.cyan);
+                    mat.SetColor("_EmissionColor", Color.cyan * 3);
                     var l = sun.GetComponentInChildren<Light>();
                     l.intensity = 1;
                     l.colorTemperature = 7000;
@@ -80,7 +88,7 @@ namespace Environment
                     var color2 = Color.white;
                     StartCoroutine(DayNight(color2));
                     sun.SetActive(true);
-                    sun.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", new Color(1f, 0.78f, 0f));
+                    sun.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", new Color(1f, 0.78f, 0f) * 6);
                     break;
                 case CardType.Rock:
                     StartCoroutine(ReduceEarthAlpha(cardType));

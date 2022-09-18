@@ -34,8 +34,10 @@ namespace UI
             
             LeftCardAnim.SetTrigger(Select);
             RightCardAnim.SetTrigger(UnSelect);
-            
-            EarthManager.Instance.AddEarthState(CardManager.CardEnums[CardManager.Index]);
+
+            var card = CardManager.CardEnums[CardManager.Index];
+            CardManager.NonUseCards.Add(card);
+            EarthManager.Instance.AddEarthState(card);
             
             StartCoroutine(ChangeCard());
         }
@@ -48,7 +50,9 @@ namespace UI
             LeftCardAnim.SetTrigger(UnSelect);
             RightCardAnim.SetTrigger(Select);
             
-            EarthManager.Instance.AddEarthState(CardManager.CardEnums[CardManager.Index + 1]);
+            var card = CardManager.CardEnums[CardManager.Index + 1];
+            CardManager.NonUseCards.Add(card);
+            EarthManager.Instance.AddEarthState(card);
             
             StartCoroutine(ChangeCard());
         }
@@ -63,6 +67,18 @@ namespace UI
             }
 
             CardManager.Index += 2;
+            
+            Debug.Log(CardManager.Index);
+            
+            if (CardManager.Index > 15)
+            {
+                EndingManager.Instance.Ending();
+                
+                UIManager.cards.leftCard.SetActive(false);
+                UIManager.cards.rightCard.SetActive(false);
+                
+                yield break;
+            }
             
             CardHolder.Instance.SetCard(CardManager.CardEnums[CardManager.Index],
                 CardManager.CardEnums[CardManager.Index + 1]);
