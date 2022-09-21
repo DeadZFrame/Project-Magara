@@ -151,5 +151,9 @@ namespace UI
             UIManager.startScene.quote.SetActive(true);
             StartCoroutine(End());
         }
+        
+        public void Exit(){
+            Application.Quit();
+        }
     }
 }

@@ -87,7 +87,7 @@ MonoBehaviour:
     - uIType: 2
       uIText: Play
     - uIType: 3
-      uIText: Credits
+      uIText: Exit
     - uIType: 4
       uIText: Keep on living like this
   - language: 1
@@ -133,6 +133,6 @@ MonoBehaviour:
     - uIType: 2
       uIText: Oyna
     - uIType: 3
-      uIText: Jenerik
+      uIText: "\xC7\u0131k\u0131\u015F"
     - uIType: 4
       uIText: "B\xF6yle ya\u015Famaya devam et"
